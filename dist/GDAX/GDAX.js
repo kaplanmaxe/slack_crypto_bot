@@ -37,7 +37,7 @@ var GDAX = function () {
         (0, _request2.default)({ url: 'https://api.gdax.com/products/' + currency + '-USD/ticker', headers: headers }, function (err, response, body) {
           var output = JSON.parse(body);
           if (!output.price) resolve('Currency not found on GDAX.');
-          resolve(currency + ': $' + output.price);
+          resolve(currency + ': $' + GDAX.round(output.price));
         });
       });
     }
@@ -101,9 +101,22 @@ var GDAX = function () {
     value: function getAllPrices() {
       return new Promise(function (resolve) {
         Promise.all([GDAX.getBitcoinPrice(), GDAX.getEthereumPrice(), GDAX.getLitecoinPrice()]).then(function (res) {
-          resolve(res.join(', '));
+          resolve('BTC: ' + GDAX.round(res[0].price) + ', ETH: ' + GDAX.round(res[1].price) + ', LTC: ' + GDAX.round(res[2].price));
         });
       });
+    }
+
+    /**
+     * Round price to two decimal places
+     *
+     * @param {string} price Price to Round
+     * @return {string}
+     */
+
+  }, {
+    key: 'round',
+    value: function round(price) {
+      return Number(price).toFixed(2);
     }
   }]);
 

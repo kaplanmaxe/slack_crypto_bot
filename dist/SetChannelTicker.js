@@ -15,7 +15,7 @@ var _env2 = _interopRequireDefault(_env);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _GDAX2.default.getAllPrices().then(function (res) {
-  console.log(res);
-  _Slack2.default.setPurpose(_env2.default.channel_id_ticker, res);
+  return _Slack2.default.setPurpose(_env2.default.tickerSlackChannel, res);
+}).then(function () {
   process.exit();
 });

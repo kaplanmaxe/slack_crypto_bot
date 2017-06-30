@@ -4,7 +4,8 @@ import env from '../env';
 
 GDAX.getAllPrices()
 .then(res => {
-  console.log(res);
-  Slack.setPurpose(env.channel_id_ticker, res);
+  return Slack.setPurpose(env.tickerSlackChannel, res);
+})
+.then(() => {
   process.exit();
 });

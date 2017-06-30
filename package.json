@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@slack/client": "^3.10.0",
+    "mongodb": "^2.2.29",
     "request": "^2.81.0"
   }
 }

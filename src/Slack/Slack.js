@@ -28,11 +28,23 @@ export default class Slack {
    */
   static setPurpose(channel, text) {
     return new Promise((resolve, reject) => {
-      console.log(web.channels.setTopic);
       web.channels.setTopic(channel, text, err => {
-        console.log('here', err);
         !err ? resolve() : reject();
       });
     });
+  }
+
+  /**
+   * Formats altcoins
+   *
+   * @param {array} data Array of coins
+   * @param {string} type BEST|WORST
+   */
+  static formAltcoinMessage(data, type) {
+    let tweet = `${type} Markets (BTC)\n\n`;
+    for (let i = 0; i < data.length; i++) {
+      tweet += `$${data[i].symbol}: ${data[i].diff}%\n`;
+    }
+    return tweet;
   }
 }

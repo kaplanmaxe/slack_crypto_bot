@@ -22,4 +22,17 @@ export default class CoinMarketCap {
       });
     });
   }
+
+  /**
+   * Fetches currencies from coinmarketcap
+   *
+   * @return {Promise}
+   */
+  static getCurrencies() {
+    return new Promise(resolve => {
+      request('https://api.coinmarketcap.com/v1/ticker/', (error, response, body) => {
+        resolve(JSON.parse(body));
+      });
+    });
+  }
 }

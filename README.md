@@ -1,5 +1,20 @@
 # Slack Crypto Bot
 
+### Installation
+
+Set up cron job for AltCoins.js as well as SetChannelTicker.js
+
+### Docker
+
+Run:
+
+```
+docker network create cbb_mongo30
+docker network create cbb_redis32
+```
+
+Then run `docker-compose up -d`
+
 ### Development
 Install dependencies:
 

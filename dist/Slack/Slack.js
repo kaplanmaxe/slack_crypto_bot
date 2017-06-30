@@ -53,12 +53,27 @@ var Slack = function () {
     key: 'setPurpose',
     value: function setPurpose(channel, text) {
       return new Promise(function (resolve, reject) {
-        console.log(web.channels.setTopic);
         web.channels.setTopic(channel, text, function (err) {
-          console.log('here', err);
           !err ? resolve() : reject();
         });
       });
+    }
+
+    /**
+     * Formats altcoins
+     *
+     * @param {array} data Array of coins
+     * @param {string} type BEST|WORST
+     */
+
+  }, {
+    key: 'formAltcoinMessage',
+    value: function formAltcoinMessage(data, type) {
+      var tweet = type + ' Markets (BTC)\n\n';
+      for (var i = 0; i < data.length; i++) {
+        tweet += '$' + data[i].symbol + ': ' + data[i].diff + '%\n';
+      }
+      return tweet;
     }
   }]);
 

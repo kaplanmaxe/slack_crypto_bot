@@ -41,6 +41,22 @@ var CoinMarketCap = function () {
         });
       });
     }
+
+    /**
+     * Fetches currencies from coinmarketcap
+     *
+     * @return {Promise}
+     */
+
+  }, {
+    key: 'getCurrencies',
+    value: function getCurrencies() {
+      return new Promise(function (resolve) {
+        (0, _request2.default)('https://api.coinmarketcap.com/v1/ticker/', function (error, response, body) {
+          resolve(JSON.parse(body));
+        });
+      });
+    }
   }]);
 
   return CoinMarketCap;

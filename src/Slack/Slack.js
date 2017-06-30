@@ -43,7 +43,7 @@ export default class Slack {
   static formAltcoinMessage(data, type) {
     let tweet = `${type} Markets (BTC)\n\n`;
     for (let i = 0; i < data.length; i++) {
-      tweet += `$${data[i].symbol}: ${data[i].diff}%\n`;
+      tweet += `${data[i].name} (${data[i].symbol}): ${data[i].diff}%\n`;
     }
     return tweet;
   }

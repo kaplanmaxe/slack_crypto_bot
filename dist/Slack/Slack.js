@@ -71,7 +71,7 @@ var Slack = function () {
     value: function formAltcoinMessage(data, type) {
       var tweet = type + ' Markets (BTC)\n\n';
       for (var i = 0; i < data.length; i++) {
-        tweet += '$' + data[i].symbol + ': ' + data[i].diff + '%\n';
+        tweet += data[i].name + ' (' + data[i].symbol + '): ' + data[i].diff + '%\n';
       }
       return tweet;
     }

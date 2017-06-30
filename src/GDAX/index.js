@@ -8,10 +8,8 @@ const rtm = new RtmClient(env.bot_token);
 rtm.on(RTM_EVENTS.MESSAGE, message => {
   const msg = message.text.toLowerCase();
   if (msg.indexOf('!gdax') === 0) {
-    console.log(msg.split(' ')[1].toUpperCase().trim());
     GDAX.getCurrency(msg.split(' ')[1].toUpperCase().trim())
     .then(res => {
-      console.log('ok');
       return Slack.sendMessage(message.channel, res);
     });
   }

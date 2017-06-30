@@ -21,9 +21,7 @@ var rtm = new _client.RtmClient(_env2.default.bot_token);
 rtm.on(_client.RTM_EVENTS.MESSAGE, function (message) {
   var msg = message.text.toLowerCase();
   if (msg.indexOf('!gdax') === 0) {
-    console.log(msg.split(' ')[1].toUpperCase().trim());
     _GDAX2.default.getCurrency(msg.split(' ')[1].toUpperCase().trim()).then(function (res) {
-      console.log('ok');
       return _Slack2.default.sendMessage(message.channel, res);
     });
   }

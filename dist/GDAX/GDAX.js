@@ -41,6 +41,70 @@ var GDAX = function () {
         });
       });
     }
+
+    /**
+     * Gets price of Bitcoin from GDAX
+     *
+     * @return {Promise}
+     */
+
+  }, {
+    key: 'getBitcoinPrice',
+    value: function getBitcoinPrice() {
+      return new Promise(function (resolve) {
+        (0, _request2.default)({ url: 'https://api.gdax.com/products/BTC-USD/ticker', headers: headers }, function (err, response, body) {
+          resolve(JSON.parse(body));
+        });
+      });
+    }
+
+    /**
+     * Gets price of Ethereum from GDAX
+     *
+     * @return {Promise}
+     */
+
+  }, {
+    key: 'getEthereumPrice',
+    value: function getEthereumPrice() {
+      return new Promise(function (resolve) {
+        (0, _request2.default)({ url: 'https://api.gdax.com/products/ETH-USD/ticker', headers: headers }, function (err, response, body) {
+          resolve(JSON.parse(body));
+        });
+      });
+    }
+
+    /**
+     * Gets price of Litecoin from GDAX
+     *
+     * @return {Promise}
+     */
+
+  }, {
+    key: 'getLitecoinPrice',
+    value: function getLitecoinPrice() {
+      return new Promise(function (resolve) {
+        (0, _request2.default)({ url: 'https://api.gdax.com/products/LTC-USD/ticker', headers: headers }, function (err, response, body) {
+          resolve(JSON.parse(body));
+        });
+      });
+    }
+
+    /**
+     * Get all prices from GDAX for all currencies
+     *
+     * @return {Promise}
+     */
+
+  }, {
+    key: 'getAllPrices',
+    value: function getAllPrices() {
+      return new Promise(function (resolve) {
+        Promise.all([GDAX.getBitcoinPrice(), GDAX.getEthereumPrice(), GDAX.getLitecoinPrice()]).then(function (res) {
+          resolve(res.join(', '));
+        });
+      });
+    }
   }]);
 
   return GDAX;

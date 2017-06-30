@@ -40,6 +40,26 @@ var Slack = function () {
         });
       });
     }
+
+    /**
+     * Sets purpose of channel
+     *
+     * @param {string} channel Channel ID
+     * @param {string} text Text to set purpose to
+     * @return {Promise}
+     */
+
+  }, {
+    key: 'setPurpose',
+    value: function setPurpose(channel, text) {
+      return new Promise(function (resolve, reject) {
+        console.log(web.channels.setTopic);
+        web.channels.setTopic(channel, text, function (err) {
+          console.log('here', err);
+          !err ? resolve() : reject();
+        });
+      });
+    }
   }]);
 
   return Slack;

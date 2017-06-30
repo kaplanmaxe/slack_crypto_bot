@@ -35,7 +35,7 @@ var Slack = function () {
      */
     value: function sendMessage(channel, text) {
       return new Promise(function (resolve, reject) {
-        web.chat.postMessage(channel, text, function (err) {
+        web.chat.postMessage(channel, text, function (err, res) {
           !err ? resolve() : reject();
         });
       });

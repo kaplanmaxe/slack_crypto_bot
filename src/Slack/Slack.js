@@ -13,7 +13,7 @@ export default class Slack {
    */
   static sendMessage(channel, text) {
     return new Promise((resolve, reject) => {
-      web.chat.postMessage(channel, text, err => {
+      web.chat.postMessage(channel, text, (err, res) => {
         !err ? resolve() : reject();
       });
     });

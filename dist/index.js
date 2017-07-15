@@ -18,6 +18,10 @@ var _CoinMarketCap = require('./CoinMarketCap/CoinMarketCap');
 
 var _CoinMarketCap2 = _interopRequireDefault(_CoinMarketCap);
 
+var _Intrinio = require('./Intrinio/Intrinio');
+
+var _Intrinio2 = _interopRequireDefault(_Intrinio);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var rtm = new _client.RtmClient(_env2.default.bot_token);
@@ -32,6 +36,10 @@ rtm.on(_client.RTM_EVENTS.MESSAGE, function (message) {
     });
   } else if (msg.indexOf('!cmc') === 0) {
     _CoinMarketCap2.default.getSingleTicker(parseCurrency(msg)).then(function (res) {
+      _Slack2.default.sendMessage(message.channel, res);
+    });
+  } else if (msg.indexOf('!stock') === 0) {
+    _Intrinio2.default.getStock(_Intrinio2.default.parseSymbol(msg)).then(function (res) {
       _Slack2.default.sendMessage(message.channel, res);
     });
   }

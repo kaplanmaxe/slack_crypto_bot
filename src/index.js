@@ -3,6 +3,7 @@ import env from '../env';
 import GDAX from './GDAX/GDAX';
 import Slack from './Slack/Slack';
 import CoinMarketCap from './CoinMarketCap/CoinMarketCap';
+import Intrinio from './Intrinio/Intrinio';
 
 const rtm = new RtmClient(env.bot_token);
 
@@ -17,6 +18,11 @@ rtm.on(RTM_EVENTS.MESSAGE, message => {
     });
   } else if (msg.indexOf('!cmc') === 0) {
     CoinMarketCap.getSingleTicker(parseCurrency(msg))
+    .then(res => {
+      Slack.sendMessage(message.channel, res);
+    });
+  } else if (msg.indexOf('!stock') === 0) {
+    Intrinio.getStock(Intrinio.parseSymbol(msg))
     .then(res => {
       Slack.sendMessage(message.channel, res);
     });

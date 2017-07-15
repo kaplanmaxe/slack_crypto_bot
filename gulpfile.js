@@ -31,6 +31,12 @@ gulp.task('transpile-bittrex', () => {
   .pipe(gulp.dest('./dist/Bittrex/'));
 });
 
+gulp.task('transpile-intrinio', () => {
+  return gulp.src(['src/Intrinio/*.js'])
+  .pipe(babel({ presets: ['es2015'] }))
+  .pipe(gulp.dest('./dist/Intrinio/'));
+});
+
 gulp.task('transpile-models', () => {
   return gulp.src(['src/models/*.js'])
   .pipe(babel({ presets: ['es2015'] }))
@@ -57,6 +63,10 @@ gulp.task('babel-bittrex', () => {
   return gulp.watch(['src/Bittrex/*.js'], ['transpile-bittrex']);
 });
 
+gulp.task('babel-intrinio', () => {
+  return gulp.watch(['src/Intrinio/*.js'], ['transpile-intrinio']);
+});
+
 gulp.task('babel-models', () => {
   return gulp.watch(['src/models/*.js'], ['transpile-models']);
 });
@@ -67,11 +77,13 @@ gulp.task('default', [
   'transpile-slack',
   'transpile-cmc',
   'transpile-bittrex',
+  'transpile-intrinio',
   'transpile-models',
   'babel-core',
   'babel-gdax',
   'babel-slack',
   'babel-cmc',
   'babel-bittrex',
+  'babel-intrinio',
   'babel-models'
 ]);

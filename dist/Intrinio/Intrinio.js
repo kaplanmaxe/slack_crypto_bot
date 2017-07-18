@@ -40,7 +40,7 @@ var Intrinio = function () {
         }, function (err, res, body) {
           var data = JSON.parse(body).data;
           if (data[0].value === 'nm' || data[1].value === 'na') resolve('Stock not found.');
-          resolve(data[0].identifier + ': ' + data[0].value + ' (' + data[1].value * 100 + '%)');
+          resolve(data[0].identifier + ': $' + data[0].value + ' (' + (data[1].value * 100).toFixed(2) + '%)');
         });
       });
     }

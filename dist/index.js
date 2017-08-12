@@ -23,6 +23,10 @@ var _CoinMarketCap = require('./CoinMarketCap/CoinMarketCap');
 
 var _CoinMarketCap2 = _interopRequireDefault(_CoinMarketCap);
 
+var _Kraken = require('./Kraken/Kraken');
+
+var _Kraken2 = _interopRequireDefault(_Kraken);
+
 var _Intrinio = require('./Intrinio/Intrinio');
 
 var _Intrinio2 = _interopRequireDefault(_Intrinio);
@@ -41,6 +45,10 @@ rtm.on(_client.RTM_EVENTS.MESSAGE, function (message) {
     });
   } else if (msg.indexOf('!cmc') === 0) {
     _CoinMarketCap2.default.getSingleTicker(parseCurrency(msg)).then(function (res) {
+      _Slack2.default.sendMessage(message.channel, res);
+    });
+  } else if (msg.indexOf('!kraken') === 0) {
+    _Kraken2.default.getCurrency(parseCurrency(msg)).then(function (res) {
       _Slack2.default.sendMessage(message.channel, res);
     });
   } else if (msg.indexOf('!stock') === 0) {

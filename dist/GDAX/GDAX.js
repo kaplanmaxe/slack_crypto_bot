@@ -12,6 +12,8 @@ var _request2 = _interopRequireDefault(_request);
 
 var _index = require('../index');
 
+var _env = require('../../env');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -31,15 +33,15 @@ var GDAX = function () {
     /**
      * Calls GDAX API to get price
      *
-     * @param {string} Currency Currency to fetch
+     * @param {string} asset Asset to fetch
      * @return {Promise}
      */
-    value: function getCurrency(currency) {
+    value: function getCurrency(asset) {
       return new Promise(function (resolve) {
-        (0, _request2.default)({ url: 'https://api.gdax.com/products/' + currency + '-USD/ticker', headers: headers }, function (err, response, body) {
+        (0, _request2.default)({ url: 'https://api.gdax.com/products/' + asset + '-' + _env.currency + '/ticker', headers: headers }, function (err, response, body) {
           var output = JSON.parse(body);
-          if (!output.price) resolve('Currency not found on GDAX.');
-          resolve(currency + ': $' + (0, _index.roundPrice)(output.price));
+          if (!output.price) return resolve('Asset not found.');
+          resolve(asset + ': $' + (0, _index.roundPrice)(output.price));
         });
       });
     }

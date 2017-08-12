@@ -1,5 +1,6 @@
 import request from 'request';
 import { roundPrice } from '../index';
+import { currency } from '../../env';
 
 const headers = {
   'User-Agent': 'request',
@@ -9,15 +10,15 @@ export default class GDAX {
   /**
    * Calls GDAX API to get price
    *
-   * @param {string} Currency Currency to fetch
+   * @param {string} asset Asset to fetch
    * @return {Promise}
    */
-  static getCurrency(currency) {
+  static getCurrency(asset) {
     return new Promise(resolve => {
-      request({ url: `https://api.gdax.com/products/${currency}-USD/ticker`, headers }, (err, response, body) => {
+      request({ url: `https://api.gdax.com/products/${asset}-${currency}/ticker`, headers }, (err, response, body) => {
         const output = JSON.parse(body);
-        if (!output.price) resolve('Currency not found on GDAX.');
-        resolve(`${currency}: $${roundPrice(output.price)}`);
+        if (!output.price) return resolve('Asset not found.');
+        resolve(`${asset}: $${roundPrice(output.price)}`);
       });
     });
   }

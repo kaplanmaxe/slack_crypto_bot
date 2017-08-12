@@ -41,7 +41,7 @@ var Intrinio = function () {
           }
         }, function (err, res, body) {
           var data = JSON.parse(body).data;
-          if (data[0].value === 'nm' || data[1].value === 'na') resolve('Stock not found.');
+          if (data[0].value === 'nm' || data[1].value === 'na') return resolve('Stock not found.');
           resolve(data[0].identifier + ': $' + (0, _index.roundPrice)(data[0].value) + ' (' + data[1].value * 100 + '%)');
         });
       });

@@ -1,5 +1,6 @@
 import request from 'request';
 import { intrinioUsername, intrinioPassword } from '../../env';
+import { roundPrice } from '../index';
 
 export default class Intrinio {
   /**
@@ -18,7 +19,7 @@ export default class Intrinio {
       }, (err, res, body) => {
         const data = JSON.parse(body).data;
         if (data[0].value === 'nm' || data[1].value === 'na') resolve('Stock not found.');
-        resolve(`${data[0].identifier}: $${data[0].value} (${(data[1].value * 100).toFixed(2)}%)`);
+        resolve(`${data[0].identifier}: $${roundPrice(data[0].value)} (${(data[1].value * 100)}%)`);
       });
     });
   }

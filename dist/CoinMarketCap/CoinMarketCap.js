@@ -10,6 +10,8 @@ var _request = require('request');
 
 var _request2 = _interopRequireDefault(_request);
 
+var _index = require('../index');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -35,7 +37,7 @@ var CoinMarketCap = function () {
           var output = JSON.parse(body);
           for (var i = 0; i < output.length; i++) {
             if (output[i].symbol.toUpperCase() === currency.toUpperCase()) {
-              resolve(output[i].name + ': $' + output[i].price_usd + ' (' + output[i].percent_change_24h + '%)');
+              resolve(output[i].name + ': $' + (0, _index.roundPrice)(output[i].price_usd) + ' (' + output[i].percent_change_24h + '%)');
             }
           }
         });

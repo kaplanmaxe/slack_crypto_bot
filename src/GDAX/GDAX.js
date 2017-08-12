@@ -1,4 +1,5 @@
 import request from 'request';
+import { roundPrice } from '../index';
 
 const headers = {
   'User-Agent': 'request',
@@ -16,7 +17,7 @@ export default class GDAX {
       request({ url: `https://api.gdax.com/products/${currency}-USD/ticker`, headers }, (err, response, body) => {
         const output = JSON.parse(body);
         if (!output.price) resolve('Currency not found on GDAX.');
-        resolve(`${currency}: $${GDAX.round(output.price)}`);
+        resolve(`${currency}: $${roundPrice(output.price)}`);
       });
     });
   }
@@ -72,18 +73,8 @@ export default class GDAX {
         GDAX.getEthereumPrice(),
         GDAX.getLitecoinPrice(),
       ]).then(res => {
-        resolve(`BTC: ${GDAX.round(res[0].price)}, ETH: ${GDAX.round(res[1].price)}, LTC: ${GDAX.round(res[2].price)}`);
+        resolve(`BTC: ${res[0].price}, ETH: ${res[1].price}, LTC: ${res[2].price}`);
       });
     });
-  }
-
-  /**
-   * Round price to two decimal places
-   *
-   * @param {string} price Price to Round
-   * @return {string}
-   */
-  static round(price) {
-    return Number(price).toFixed(2);
   }
 }

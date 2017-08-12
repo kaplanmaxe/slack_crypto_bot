@@ -1,5 +1,10 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.roundPrice = roundPrice;
+
 var _client = require('@slack/client');
 
 var _env = require('../env');
@@ -52,6 +57,18 @@ rtm.on(_client.RTM_EVENTS.MESSAGE, function (message) {
  */
 function parseCurrency(msg) {
   return msg.split(' ')[1].toUpperCase().trim();
+}
+
+/**
+ * Rounds dollar amount to more human readable Number
+ *
+ * @param {integer} price Price of asset
+ * @return {string}
+ */
+function roundPrice(price) {
+  // If price is below 0, do not round and show all decimal places
+  if (price.split('.')[0] === '0') return price;
+  return Number(price).toFixed(2);
 }
 
 rtm.start();

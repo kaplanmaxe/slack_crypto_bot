@@ -4,5 +4,6 @@ module.exports = {
   altCoinSlackChannel: '',
   tickerSlackChannel: '',
   intrinioUsername: '',
-  intrinioPassword: ''
+  intrinioPassword: '',
+  currency: 'USD'
 };

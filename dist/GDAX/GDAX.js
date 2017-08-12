@@ -10,6 +10,8 @@ var _request = require('request');
 
 var _request2 = _interopRequireDefault(_request);
 
+var _index = require('../index');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -37,7 +39,7 @@ var GDAX = function () {
         (0, _request2.default)({ url: 'https://api.gdax.com/products/' + currency + '-USD/ticker', headers: headers }, function (err, response, body) {
           var output = JSON.parse(body);
           if (!output.price) resolve('Currency not found on GDAX.');
-          resolve(currency + ': $' + GDAX.round(output.price));
+          resolve(currency + ': $' + (0, _index.roundPrice)(output.price));
         });
       });
     }
@@ -101,22 +103,9 @@ var GDAX = function () {
     value: function getAllPrices() {
       return new Promise(function (resolve) {
         Promise.all([GDAX.getBitcoinPrice(), GDAX.getEthereumPrice(), GDAX.getLitecoinPrice()]).then(function (res) {
-          resolve('BTC: ' + GDAX.round(res[0].price) + ', ETH: ' + GDAX.round(res[1].price) + ', LTC: ' + GDAX.round(res[2].price));
+          resolve('BTC: ' + res[0].price + ', ETH: ' + res[1].price + ', LTC: ' + res[2].price);
         });
       });
-    }
-
-    /**
-     * Round price to two decimal places
-     *
-     * @param {string} price Price to Round
-     * @return {string}
-     */
-
-  }, {
-    key: 'round',
-    value: function round(price) {
-      return Number(price).toFixed(2);
     }
   }]);
 

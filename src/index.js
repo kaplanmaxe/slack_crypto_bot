@@ -38,4 +38,16 @@ function parseCurrency(msg) {
   return msg.split(' ')[1].toUpperCase().trim();
 }
 
+/**
+ * Rounds dollar amount to more human readable Number
+ *
+ * @param {integer} price Price of asset
+ * @return {string}
+ */
+export function roundPrice(price) {
+  // If price is below 0, do not round and show all decimal places
+  if (price.split('.')[0] === '0') return price;
+  return Number(price).toFixed(2);
+}
+
 rtm.start();

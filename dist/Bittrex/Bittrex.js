@@ -92,7 +92,7 @@ var Bittrex = function () {
         return {
           marketName: res.MarketName,
           symbol: res.MarketName.split('-')[1],
-          diff: res.Diff.toFixed(2),
+          diff: res.Diff,
           name: null
         };
       });

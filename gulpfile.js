@@ -43,6 +43,12 @@ gulp.task('transpile-models', () => {
   .pipe(gulp.dest('./dist/models/'));
 });
 
+gulp.task('transpile-kraken', () => {
+  return gulp.src(['src/Kraken/*.js'])
+  .pipe(babel({ presets: ['es2015'] }))
+  .pipe(gulp.dest('./dist/Kraken/'));
+});
+
 gulp.task('babel-core', () => {
   return gulp.watch(['src/*.js'], ['transpile-core']);
 });
@@ -71,6 +77,10 @@ gulp.task('babel-models', () => {
   return gulp.watch(['src/models/*.js'], ['transpile-models']);
 });
 
+gulp.task('babel-kraken', () => {
+  return gulp.watch(['src/Kraken/*.js'], ['transpile-kraken']);
+});
+
 gulp.task('default', [
   'transpile-core',
   'transpile-gdax',
@@ -79,11 +89,13 @@ gulp.task('default', [
   'transpile-bittrex',
   'transpile-intrinio',
   'transpile-models',
+  'transpile-kraken',
   'babel-core',
   'babel-gdax',
   'babel-slack',
   'babel-cmc',
   'babel-bittrex',
   'babel-intrinio',
-  'babel-models'
+  'babel-models',
+  'babel-kraken'
 ]);

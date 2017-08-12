@@ -12,6 +12,8 @@ var _request2 = _interopRequireDefault(_request);
 
 var _env = require('../../env');
 
+var _index = require('../index');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -40,7 +42,7 @@ var Intrinio = function () {
         }, function (err, res, body) {
           var data = JSON.parse(body).data;
           if (data[0].value === 'nm' || data[1].value === 'na') resolve('Stock not found.');
-          resolve(data[0].identifier + ': $' + data[0].value + ' (' + (data[1].value * 100).toFixed(2) + '%)');
+          resolve(data[0].identifier + ': $' + (0, _index.roundPrice)(data[0].value) + ' (' + data[1].value * 100 + '%)');
         });
       });
     }

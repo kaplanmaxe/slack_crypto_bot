@@ -1,4 +1,5 @@
 import request from 'request';
+import { roundPrice } from '../index';
 
 export default class CoinMarketCap {
   /**
@@ -15,7 +16,7 @@ export default class CoinMarketCap {
         for (let i = 0; i < output.length; i++) {
           if (output[i].symbol.toUpperCase() === currency.toUpperCase()) {
             resolve(
-              `${output[i].name}: $${output[i].price_usd} (${output[i].percent_change_24h}%)`
+              `${output[i].name}: $${roundPrice(output[i].price_usd)} (${output[i].percent_change_24h}%)`
             );
           }
         }

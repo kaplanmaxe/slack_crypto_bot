@@ -75,7 +75,7 @@ function parseCurrency(msg) {
  */
 function roundPrice(price) {
   // If price is below 0, do not round and show all decimal places
-  if (price.split('.')[0] === '0') return price;
+  if (String(price).split('.')[0] === '0') return price;
   return Number(price).toFixed(2);
 }
 

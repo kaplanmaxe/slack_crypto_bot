@@ -4,6 +4,10 @@
 
 Set up cron job for AltCoins.js as well as SetChannelTicker.js
 
+Cryptocheck MUST be installed globally on the server this runs on.
+
+`npm install -g cryptocheck`
+
 ### Docker
 
 Run:

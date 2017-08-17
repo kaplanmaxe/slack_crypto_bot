@@ -1,9 +1,7 @@
 import { RtmClient, RTM_EVENTS } from '@slack/client';
 import env from '../env';
-import GDAX from './GDAX/GDAX';
+import { exec } from 'child_process';
 import Slack from './Slack/Slack';
-import CoinMarketCap from './CoinMarketCap/CoinMarketCap';
-import Kraken from './Kraken/Kraken';
 import Intrinio from './Intrinio/Intrinio';
 
 const rtm = new RtmClient(env.bot_token);
@@ -13,19 +11,16 @@ rtm.on(RTM_EVENTS.MESSAGE, message => {
   // TODO: make more robust so command doesn't have to go in beginning
   // of sentence
   if (msg.indexOf('!gdax') === 0) {
-    GDAX.getCurrency(parseCurrency(msg))
-    .then(res => {
-      return Slack.sendMessage(message.channel, res);
+    exec(`cryptocheck gdax ${parseCurrency(msg)}`, (err, stdout) => {
+      return Slack.sendMessage(message.channel, stdout);
     });
   } else if (msg.indexOf('!cmc') === 0) {
-    CoinMarketCap.getSingleTicker(parseCurrency(msg))
-    .then(res => {
-      Slack.sendMessage(message.channel, res);
+    exec(`cryptocheck cmc ${parseCurrency(msg)}`, (err, stdout) => {
+      return Slack.sendMessage(message.channel, stdout);
     });
   } else if (msg.indexOf('!kraken') === 0) {
-    Kraken.getCurrency(parseCurrency(msg))
-    .then(res => {
-      Slack.sendMessage(message.channel, res);
+    exec(`cryptocheck kraken ${parseCurrency(msg)}`, (err, stdout) => {
+      return Slack.sendMessage(message.channel, stdout);
     });
   } else if (msg.indexOf('!stock') === 0) {
     Intrinio.getStock(Intrinio.parseSymbol(msg))

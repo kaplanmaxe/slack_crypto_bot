@@ -11,21 +11,11 @@ var _env = require('../env');
 
 var _env2 = _interopRequireDefault(_env);
 
-var _GDAX = require('./GDAX/GDAX');
-
-var _GDAX2 = _interopRequireDefault(_GDAX);
+var _child_process = require('child_process');
 
 var _Slack = require('./Slack/Slack');
 
 var _Slack2 = _interopRequireDefault(_Slack);
-
-var _CoinMarketCap = require('./CoinMarketCap/CoinMarketCap');
-
-var _CoinMarketCap2 = _interopRequireDefault(_CoinMarketCap);
-
-var _Kraken = require('./Kraken/Kraken');
-
-var _Kraken2 = _interopRequireDefault(_Kraken);
 
 var _Intrinio = require('./Intrinio/Intrinio');
 
@@ -40,16 +30,16 @@ rtm.on(_client.RTM_EVENTS.MESSAGE, function (message) {
   // TODO: make more robust so command doesn't have to go in beginning
   // of sentence
   if (msg.indexOf('!gdax') === 0) {
-    _GDAX2.default.getCurrency(parseCurrency(msg)).then(function (res) {
-      return _Slack2.default.sendMessage(message.channel, res);
+    (0, _child_process.exec)('cryptocheck gdax ' + parseCurrency(msg), function (err, stdout) {
+      return _Slack2.default.sendMessage(message.channel, stdout);
     });
   } else if (msg.indexOf('!cmc') === 0) {
-    _CoinMarketCap2.default.getSingleTicker(parseCurrency(msg)).then(function (res) {
-      _Slack2.default.sendMessage(message.channel, res);
+    (0, _child_process.exec)('cryptocheck cmc ' + parseCurrency(msg), function (err, stdout) {
+      return _Slack2.default.sendMessage(message.channel, stdout);
     });
   } else if (msg.indexOf('!kraken') === 0) {
-    _Kraken2.default.getCurrency(parseCurrency(msg)).then(function (res) {
-      _Slack2.default.sendMessage(message.channel, res);
+    (0, _child_process.exec)('cryptocheck kraken ' + parseCurrency(msg), function (err, stdout) {
+      return _Slack2.default.sendMessage(message.channel, stdout);
     });
   } else if (msg.indexOf('!stock') === 0) {
     _Intrinio2.default.getStock(_Intrinio2.default.parseSymbol(msg)).then(function (res) {

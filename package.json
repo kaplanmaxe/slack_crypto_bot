@@ -18,6 +18,6 @@
     "@slack/client": "^3.10.0",
     "cryptocheck": "^1.1.1",
     "mongodb": "^2.2.29",
-    "request": "^2.81.0"
+    "request": "^2.88.0"
   }
 }

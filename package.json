@@ -17,7 +17,7 @@
   "dependencies": {
     "@slack/client": "^3.10.0",
     "cryptocheck": "^1.1.1",
-    "mongodb": "^2.2.29",
+    "mongodb": "^3.1.13",
     "request": "^2.81.0"
   }
 }

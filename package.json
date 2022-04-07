@@ -15,7 +15,7 @@
     "gulp-babel": "^6.1.2"
   },
   "dependencies": {
-    "@slack/client": "^3.10.0",
+    "@slack/client": "^4.0.0",
     "cryptocheck": "^1.1.1",
     "mongodb": "^2.2.29",
     "request": "^2.81.0"
